@@ -41,7 +41,7 @@ export default function Home({ types1, prods1 }) {
             </Link>
           </button>
           {types.map((type) => (
-            <div key={type._id} style={{ margin: "15px" }}>
+            <div className={styles.card} key={type._id} style={{ margin: "15px" }}>
               <div>_id : {type._id}</div>
               <div>name : {type.name}</div>
               <div>created_at : {type.created_at}</div>
@@ -50,7 +50,7 @@ export default function Home({ types1, prods1 }) {
                 attributes :
                 <ul>
                   {type.attributes.map((att, index) => (
-                    <li key={att.type + index}>
+                    <li key={'attribute'+ index}>
                       {index}
                       <ul>
                         type : {att.type}
@@ -58,12 +58,12 @@ export default function Home({ types1, prods1 }) {
                           attributeValue :
                           {att?.type?.map((type, index) => {
                             return type == "boolean" ? (
-                              <span key={type + index}>
+                              <span key={'type' + index}>
                                 {" "}
                                 {att?.attributeValue?.boolean?.toString()}
                               </span>
                             ) : (
-                              <div>{att?.attributeValue?.date}</div>
+                              <div  key={'type2' + index}>{att?.attributeValue?.date}</div>
                             );
                           })}
                         </li>
@@ -93,7 +93,7 @@ export default function Home({ types1, prods1 }) {
             </Link>
           </button>
           {prods.map((prod) => (
-            <div key={prod._id} style={{ margin: "15px" }}>
+            <div className={styles.card} key={prod._id} style={{ margin: "15px" }}>
               <div>_id : {prod._id}</div>
               <div>name : {prod.name}</div>
               <div>created_at : {prod.created_at}</div>
@@ -101,7 +101,7 @@ export default function Home({ types1, prods1 }) {
               <div>
                 Assigned attributes :
                 {prod.assignedAttributes.map((att, index) => (
-                  <li key={att.attributeValue._id}>
+                  <li key={att._id}>
                     _id : {att.attributeValue._id}
                     <ul>
                       {/* {console.log(att)} */}
@@ -125,7 +125,6 @@ export default function Home({ types1, prods1 }) {
             </div>
           ))}
         </div>
-
         <div>
         <h2 className={styles.title}>suggestions</h2>
             The model AssignedAttribute should have the same property type like Attibute, 

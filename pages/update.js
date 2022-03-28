@@ -50,8 +50,9 @@ export default function UpdateType({ types1, id, prod1 }) {
   };
 
   return (
-    <div className={styles.main}>
+    <div  className={styles.main}>
       <div
+      className={styles.card}
         style={{
           display: "flex",
           justifyContent: "center",

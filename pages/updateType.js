@@ -42,6 +42,7 @@ form.append('id',id)
   return (
     <div className={styles.main}>
       <div
+      className={styles.card}
         style={{
           display: "flex",
           justifyContent: "center",

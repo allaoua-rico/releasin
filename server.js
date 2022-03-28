@@ -11,6 +11,7 @@ const updateProductType = require("./routes/updateProductType.js");
 const getTypeAttributes = require("./routes/getTypeAttributes.js");
 const addProduct = require("./routes/addProduct.js");
 const updateProduct = require("./routes/updateProduct.js");
+const getAssignedAttributes = require("./routes/getAssignedAttributes.js");
 
 
 
@@ -48,6 +49,7 @@ app
     server.use("/api/updateProductType", updateProductType);
     server.use("/api/updateProduct", updateProduct);
     server.use("/api/getTypeAttributes", getTypeAttributes);
+    server.use("/api/getAssignedAttributes", getAssignedAttributes);
 
     
     server.all("*", (req, res) => {

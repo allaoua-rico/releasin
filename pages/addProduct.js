@@ -40,7 +40,7 @@ export default function AddProduct({ types1 }) {
 
   return (
     <div className={styles.main}>
-      <form id="form" onSubmit={(e) => handleSubmit(e)}>
+      <form className={styles.card} id="form" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label htmlFor="name">name</label>
           <input required name="name" type="text" />

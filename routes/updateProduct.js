@@ -3,8 +3,6 @@ const multer = require("multer");
 const Attribute = require("../models/attribute");
 const router = express.Router();
 const ProductType = require("../models/productType");
-const Product = require("../models/product");
-
 
 //multer memory config
 const storage = multer.memoryStorage();
@@ -25,17 +23,19 @@ router.post("/", upload.fields([]), async (req, res) => {
       );
       idAttributes.push(_id);
     }
+    console.log(req.body.type);
 
-    const prod = new Product({
-      name: req.body.name,
-      productType: req.body.type,
-      assignedAttributes: idAttributes,
-    });
-    prod.save().then((doc) => {
-      console.log(doc.toObject());
-        const { _id } = doc.toObject();
-        _id && res.json({ msg: "Product Added successfully", _id });
-    });
+    await ProductType.updateOne(
+      { _id: req.body.id },
+      {
+        name: req.body.name,
+        productType: req.body.type[0],
+        assignedAttributes: idAttributes,
+      }
+    )
+      //   .then((doc) => console.log(doc))
+      .catch((err) => console.log(err));
+    res.json({ msg: "product updated" });
   } catch (error) {}
 });
 

@@ -41,16 +41,19 @@ export default function Home({ types1, prods1 }) {
             </Link>
           </button>
           {types.map((type) => (
-            <div className={styles.card} key={type._id} style={{ margin: "15px" }}>
+            <div
+              className={styles.card}
+              key={type._id}
+              style={{ margin: "15px" }}
+            >
               <div>_id : {type._id}</div>
               <div>name : {type.name}</div>
               <div>created_at : {type.created_at}</div>
-
               <div>
                 attributes :
                 <ul>
                   {type.attributes.map((att, index) => (
-                    <li key={'attribute'+ index}>
+                    <li key={"attribute" + index}>
                       {index}
                       <ul>
                         type : {att.type}
@@ -58,12 +61,14 @@ export default function Home({ types1, prods1 }) {
                           attributeValue :
                           {att?.type?.map((type, index) => {
                             return type == "boolean" ? (
-                              <span key={'type' + index}>
+                              <span key={"type" + index}>
                                 {" "}
                                 {att?.attributeValue?.boolean?.toString()}
                               </span>
                             ) : (
-                              <div  key={'type2' + index}>{att?.attributeValue?.date}</div>
+                              <div key={"type2" + index}>
+                                {att?.attributeValue?.date}
+                              </div>
                             );
                           })}
                         </li>
@@ -93,27 +98,30 @@ export default function Home({ types1, prods1 }) {
             </Link>
           </button>
           {prods.map((prod) => (
-            <div className={styles.card} key={prod._id} style={{ margin: "15px" }}>
+            <div
+              className={styles.card}
+              key={prod._id}
+              style={{ margin: "15px" }}
+            >
               <div>_id : {prod._id}</div>
               <div>name : {prod.name}</div>
               <div>created_at : {prod.created_at}</div>
-
               <div>
                 Assigned attributes :
                 {prod.assignedAttributes.map((att, index) => (
-                  <li key={att._id}>
-                    _id : {att.attributeValue._id}
-                    <ul>
-                      {/* {console.log(att)} */}
+                  <li key={att}>
+                    _id : {att}
+                    {/* <ul>
                       name :{" "}
                       {att.attributeValue.name?.map((name) => (
                         <div key={name}>{name}</div>
                       ))}
-                      
                       {att.attributeValue.boolean && (
-                        <div>boolean:{" "}{att.attributeValue.boolean.toString()}</div>
+                        <div>
+                          boolean: {att.attributeValue.boolean.toString()}
+                        </div>
                       )}
-                    </ul>
+                    </ul> */}
                   </li>
                 ))}
               </div>
@@ -126,9 +134,9 @@ export default function Home({ types1, prods1 }) {
           ))}
         </div>
         <div>
-        <h2 className={styles.title}>suggestions</h2>
-            The model AssignedAttribute should have the same property type like Attibute, 
-            or we should just use Attribute instead.
+          <h2 className={styles.title}>suggestions</h2>
+          The model AssignedAttribute should have the same property type like
+          Attibute, or we should just use Attribute instead.
         </div>
       </main>
     </div>
@@ -143,10 +151,10 @@ export async function getServerSideProps() {
     })
     .lean();
   const prods = await Product.find({})
-    .populate({
-      path: "assignedAttributes",
-      populate: { path: "attributeValue" },
-    })
+    // .populate({
+    //   path: "assignedAttributes",
+    //   populate: { path: "attributeValue" },
+    // })
     .lean();
   return {
     props: { types1: JSON.stringify(types), prods1: JSON.stringify(prods) },

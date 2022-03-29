@@ -4,6 +4,7 @@ const Attribute = require("../models/attribute");
 const router = express.Router();
 const ProductType = require("../models/productType");
 const Product = require("../models/product");
+const AssignedAttribute = require("../models/assignedAttribute");
 
 
 //multer memory config

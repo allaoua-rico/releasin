@@ -40,6 +40,8 @@ export default function AddProduct({ types1 }) {
 
   return (
     <div className={styles.main}>
+      <a href="/">{"<--Home"}</a>
+
       <form className={styles.card} id="form" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label htmlFor="name">name</label>

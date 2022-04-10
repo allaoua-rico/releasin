@@ -14,15 +14,6 @@ router.post("/", upload.fields([]), async (req, res) => {
     Array.isArray(req.body.attributes)
       ? (attributes = [...req.body.attributes])
       : (attributes = [req.body.attributes]);
-
-    let idAttributes = [];
-    for (let index = 0; index < attributes.length; index++) {
-      const { _id } = await Attribute.findOne(
-        { name: attributes[index] },
-        { _id: 1 }
-      );
-      idAttributes.push(_id);
-    }
     console.log(req.body);
 
     await Product.updateOne(
@@ -30,13 +21,13 @@ router.post("/", upload.fields([]), async (req, res) => {
       {
         name: req.body.name,
         productType: req.body.type,
-        assignedAttributes: idAttributes,
+        assignedAttributes: req.body.attributes,
       }
     )
-        // .then((doc) => console.log(doc))
-      .catch((err) => console.log(err));
     res.json({ msg: "product updated" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 module.exports = router;

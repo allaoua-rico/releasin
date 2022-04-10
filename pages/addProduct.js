@@ -14,14 +14,14 @@ export default function AddProduct({ types1 }) {
   const types = JSON.parse(types1);
 
   useEffect(() => {
-    console.log(type);
+    // console.log(type);
     fetch(`/api/getTypeAttributes?id=${type}`, { method: "GET" })
       .then((res) => res.json())
       .then((res) => setattributes(res));
   }, [type]);
-  useEffect(() => {
-    console.log(attributes);
-  }, [attributes]);
+  // useEffect(() => {
+  //   console.log(attributes);
+  // }, [attributes]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -66,11 +66,11 @@ export default function AddProduct({ types1 }) {
         </div>
         <div>
           <label htmlFor="attributes">
-            attributes, you can choose multiple
+            Attributes, you can choose multiple
           </label>
           <select required multiple name="attributes" id="attributes">
             {attributes.map((att) => (
-              <option key={att.name} value={att.name}>
+              <option key={att._id} value={att._id}>
                 {att.name}
               </option>
             ))}

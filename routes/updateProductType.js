@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-const Attribute = require("../models/attribute");
 const router = express.Router();
 const ProductType = require("../models/productType");
 
@@ -15,23 +14,13 @@ router.post("/", upload.fields([]), async (req, res) => {
       ? (attributes = [...req.body.attributes])
       : (attributes = [req.body.attributes]);
 
-    let idAttributes = [];
-    for (let index = 0; index < attributes.length; index++) {
-      const { _id } = await Attribute.findOne(
-        { name: attributes[index] },
-        { _id: 1 }
-      );
-      idAttributes.push(_id);
-    }
-    console.log(idAttributes);
-
     await ProductType.updateOne(
       { _id: req.body.id },
       {
         name: req.body.name,
-        attributes: idAttributes,
+        attributes: attributes,
       }
-    ).catch((err) => console.log(err));
+    )
     res.json({ msg: "product updated" });
   } catch (error) {}
 });

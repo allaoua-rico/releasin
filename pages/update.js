@@ -13,18 +13,16 @@ export default function UpdateType({ types1, id, prod1 }) {
   const [name, setName] = useState(JSON.parse(prod1).name);
   const [atts, setAtts] = useState(JSON.parse(prod1).assignedAttributes);
   const [attributes, setattributes] = useState([]);
-
   const router = useRouter();
-  console.log(prod);
 
   useEffect(() => {
     fetch("/api/getType", { method: "GET" })
       .then((res) => res.json())
       .then((res) => setattributes(res));
   }, []);
-//   useEffect(() => {
-//     console.log(type);
-//   }, [type]);
+  // useEffect(() => {
+  //   console.log(attributes);
+  // }, [attributes]);
   useEffect(() => {
     console.log(type);
     fetch(`/api/getTypeAttributes?id=${type}`, { method: "GET" })
@@ -36,9 +34,9 @@ export default function UpdateType({ types1, id, prod1 }) {
     e.preventDefault();
     const form = new FormData(e.target);
     form.append("id", id);
-    for (let [key, value] of form.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of form.entries()) {
+    //   console.log(key, value);
+    // }
     fetch("/api/updateProduct", {
       method: "POST",
       body: form,
@@ -62,7 +60,7 @@ export default function UpdateType({ types1, id, prod1 }) {
       >
         <form id="form" onSubmit={(e) => handleSubmit(e)}>
           <div>
-            <label htmlFor="name">name : </label>
+            <label htmlFor="name">Name : </label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -72,7 +70,7 @@ export default function UpdateType({ types1, id, prod1 }) {
             />
           </div>
           <div>
-            <label htmlFor="type">product type</label>
+            <label htmlFor="type">Product type</label>
             <select
               required
               value={type}
@@ -80,10 +78,6 @@ export default function UpdateType({ types1, id, prod1 }) {
               name="type"
               id="type"
             >
-              <option disabled value>
-                {" "}
-                -- select an option --{" "}
-              </option>
               {types.map((type) => (
                 <option
                   key={type._id}
@@ -99,16 +93,15 @@ export default function UpdateType({ types1, id, prod1 }) {
             <label htmlFor="attributes">
               attributes: (you can choose multiple by pressing ctrl)
             </label>
-
             <div>
               <select
-                value={atts.map((att) => att.name)}
+                value={atts.map((att) => att)}
                 onChange={(e) => {
                   var options = e.target.options;
                   var value = [];
                   for (var i = 0, l = options.length; i < l; i++) {
                     if (options[i].selected) {
-                      value.push({ name: options[i].value });
+                      value.push( options[i].value );
                     }
                   }
                   setAtts([...value]);
@@ -119,7 +112,7 @@ export default function UpdateType({ types1, id, prod1 }) {
                 id="attributes1"
               >
                 {attributes.map((att) => (
-                  <option key={att.name} value={att.name}>
+                  <option key={att.name} value={att._id}>
                     {att.name}
                   </option>
                 ))}

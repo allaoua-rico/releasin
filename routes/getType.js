@@ -1,5 +1,4 @@
 const express = require("express");
-// const multer = require("multer");
 const Attribute = require("../models/attribute");
 const router = express.Router();
 require("../models/attributeValue");

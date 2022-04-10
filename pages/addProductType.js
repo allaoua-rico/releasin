@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.css";
 
 import { useRouter } from "next/router";
 
-import Head from "next/head";
 export default function AddProduct({}) {
   const [attributes, setattributes] = useState([]);
   const router = useRouter();
@@ -35,18 +34,21 @@ export default function AddProduct({}) {
 
   return (
     <div className={styles.main}>
+      <a href="/">{"<--Home"}</a>
       <form className={styles.card} id="form" onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label htmlFor="name">name</label>
+          <label htmlFor="name">Name:</label>
           <input required name="name" type="text" />
         </div>
         <div>
           <label htmlFor="attributes">
-            attributes, you can choose multiple
+            Attributes, you can choose multiple by pressing ctrl:
           </label>
-          <select required multiple name="attributes" id="attributes1">
+          <br />
+          <select required multiple name="attributes" id="attributes">
             {attributes.map((att) => (
-              <option key={att.name} value={att.name}>
+              // <option key={att.name} value={att.name}>
+              <option key={att.name} value={att._id}>
                 {att.name}
               </option>
             ))}

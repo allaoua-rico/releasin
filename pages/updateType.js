@@ -4,31 +4,29 @@ import { useRouter } from "next/router";
 import ProductType from "../models/productType";
 import dbConnect from "../backLib/dbConnect";
 
-export default function UpdateType({ type1,id }) {
+export default function UpdateType({ type1, id }) {
   //   const [type, setType] = useState(JSON.parse(type1));
   const [name, setName] = useState(JSON.parse(type1).name);
-  const [atts, setAtts] = useState(JSON.parse(type1).attributes);
-  const [attributes, setattributes] = useState([]);
-
+  const [typeAtts, setTypeAtts] = useState(JSON.parse(type1).attributes);
+  const [allattributes, setAllattributes] = useState([]);
   const router = useRouter();
-  //     const type=JSON.parse(type1)
 
   useEffect(() => {
     fetch("/api/getType", { method: "GET" })
       .then((res) => res.json())
-      .then((res) => setattributes(res));
+      .then((res) => setAllattributes(res));
   }, []);
   useEffect(() => {
-    console.log( atts);
-  }, [name, atts]);
+    console.log(typeAtts);
+  }, [name, typeAtts]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
     for (let [key, value] of form.entries()) {
-        console.log(key, value);
-      }
-form.append('id',id)
+      console.log(key, value);
+    }
+    form.append("id", id);
     fetch("/api/updateProductType", {
       method: "POST",
       body: form,
@@ -41,8 +39,9 @@ form.append('id',id)
 
   return (
     <div className={styles.main}>
+      <a href="/">{"<--Home"}</a>
       <div
-      className={styles.card}
+        className={styles.card}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -67,24 +66,25 @@ form.append('id',id)
             </label>
             <div>
               <select
-                value={atts.map((att) => att.name)}
+                value={typeAtts.map((att) => att._id)}
                 onChange={(e) => {
-                var options = e.target.options;
-                var value = [];
-                for (var i = 0, l = options.length; i < l; i++) {
-                  if (options[i].selected) {
-                    value.push({name:options[i].value});
+                  var options = e.target.options;
+                  var value = [];
+                  for (var i = 0, l = options.length; i < l; i++) {
+                    console.log(options[i].value )
+                    if (options[i].selected) {
+                      value.push({ _id: options[i].value });
+                    }
                   }
-                }
-                setAtts([...value])
+                  setTypeAtts([...value]);
                 }}
                 required
                 multiple
                 name="attributes"
                 id="attributes1"
               >
-                {attributes.map((att) => (
-                  <option key={att.name} value={att.name}>
+                {allattributes.map((att) => (
+                  <option key={att.name} value={att._id}>
                     {att.name}
                   </option>
                 ))}
@@ -92,7 +92,7 @@ form.append('id',id)
             </div>
           </div>
           <div>
-            <button type="submit">submit</button>
+            <button type="submit">update</button>
           </div>
         </form>
       </div>
@@ -108,5 +108,5 @@ export async function getServerSideProps({ query }) {
     })
     .lean();
 
-  return { props: { type1: JSON.stringify(type),id:query.id } };
+  return { props: { type1: JSON.stringify(type), id: query.id } };
 }

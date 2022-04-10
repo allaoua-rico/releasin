@@ -1,19 +1,12 @@
 const express = require("express");
 const next = require("next");
 const mongoose = require("mongoose");
-const addProductRouter = require("./routes/addProduct.js");
-// const corsRouter = require("./routes/cors.js");
-// const updateRouter = require("./routes/update.js");
-const addProductType = require("./routes/addProductType.js");
 const getAttributes = require("./routes/getAttributes.js");
 const getType = require("./routes/getType.js");
-const updateProductType = require("./routes/updateProductType.js");
 const getTypeAttributes = require("./routes/getTypeAttributes.js");
-const addProduct = require("./routes/addProduct.js");
-const updateProduct = require("./routes/updateProduct.js");
 const getAssignedAttributes = require("./routes/getAssignedAttributes.js");
-
-
+const productRouter = require("./routes/product.js");
+const typeRouter = require("./routes/type.js");
 
 const cors = require('cors')
 
@@ -38,20 +31,14 @@ app
     server.use(express.json());
     server.use(cors())
 
-    // server.use("/api/addProduct", addProductRouter);
-    // server.use("/api/cors", corsRouter);
-    // server.use("/api/update", updateRouter);
-    server.use("/api/addProductType", addProductType);
-    server.use("/api/addProduct", addProduct);
+    server.use("/api/product", productRouter);
+    server.use("/api/type", typeRouter);
 
     server.use("/api/getAttributes", getAttributes);
     server.use("/api/getType", getType);
-    server.use("/api/updateProductType", updateProductType);
-    server.use("/api/updateProduct", updateProduct);
     server.use("/api/getTypeAttributes", getTypeAttributes);
     server.use("/api/getAssignedAttributes", getAssignedAttributes);
 
-    
     server.all("*", (req, res) => {
       return handle(req, res);
     });

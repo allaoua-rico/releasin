@@ -22,7 +22,7 @@ export default function AddProduct({}) {
     for (let [key, value] of form.entries()) {
       console.log(key, value);
     }
-    fetch("/api/addProductType", {
+    fetch("/api/type", {
       method: "POST",
       body: form,
     })

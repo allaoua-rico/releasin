@@ -28,7 +28,7 @@ export default function AddProduct({ types1 }) {
     for (let [key, value] of form.entries()) {
       console.log(key, value);
     }
-    fetch("/api/addProduct", {
+    fetch("/api/product", {
       method: "POST",
       body: form,
     })

@@ -37,8 +37,8 @@ export default function UpdateType({ types1, id, prod1 }) {
     // for (let [key, value] of form.entries()) {
     //   console.log(key, value);
     // }
-    fetch("/api/updateProduct", {
-      method: "POST",
+    fetch("/api/product", {
+      method: "PUT",
       body: form,
     })
       .then((res) => res.json())

@@ -27,8 +27,8 @@ export default function UpdateType({ type1, id }) {
       console.log(key, value);
     }
     form.append("id", id);
-    fetch("/api/updateProductType", {
-      method: "POST",
+    fetch("/api/type", {
+      method: "PUT",
       body: form,
     })
       .then((res) => res.json())

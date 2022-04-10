@@ -32,12 +32,7 @@ export default function Home({ types1, prods1 }) {
           <h2 className={styles.title}>List of types</h2>
           <button>
             <Link passHref href={`/addProductType`}>
-              <a
-                href="
-                "
-              >
-                add a type
-              </a>
+              <a>add a type</a>
             </Link>
           </button>
           {types.map((type) => (
@@ -46,7 +41,7 @@ export default function Home({ types1, prods1 }) {
               key={type._id}
               style={{ margin: "15px" }}
             >
-              <div>_id : {type._id}</div>
+              {/* <div>_id : {type._id}</div> */}
               <div>name : {type.name}</div>
               <div>created_at : {type.created_at}</div>
               <div>
@@ -111,6 +106,7 @@ export default function Home({ types1, prods1 }) {
                 {prod.assignedAttributes.map((att, index) => (
                   <li key={att}>
                     _id : {att}
+                    
                     {/* <ul>
                       name :{" "}
                       {att.attributeValue.name?.map((name) => (

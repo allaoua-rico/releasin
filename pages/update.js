@@ -49,6 +49,8 @@ export default function UpdateType({ types1, id, prod1 }) {
 
   return (
     <div  className={styles.main}>
+      <a href="/">{"<--Home"}</a>
+
       <div
       className={styles.card}
         style={{
